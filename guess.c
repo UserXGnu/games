@@ -2,6 +2,50 @@
 #include <stdlib.h>
 #include <time.h>
 
+void welcome();
+void game_over();
+int choose_level(int *attempts);
+
+int main(){
+  int number, level, attempts = 0, correct = 0;
+
+  //generating a pseudo radom number
+  srand(time(0));
+  int secret_number = rand() % 100;
+  
+  welcome();
+  level = choose_level(&attempts);
+
+  for(int i = 1; i <= attempts; i++){
+    printf("\n\nGive me a number!\n");
+    scanf("%d", &number);
+    printf("[ Attempt %d of %d !]\n", i, attempts);
+    
+    correct = number == secret_number;
+    
+    if(number < 0){
+      printf("[ You can't use negative numbers!!! ]\n");
+      continue;
+    }
+    
+    if(correct){
+      printf("Congratulations! The number is %d!!!\n", secret_number);
+      break;
+    }else{
+      if(number > secret_number)
+        printf("Your number is greater than Secret Number!!\n");
+      else
+        printf("Your number is less than Secret Number!!\n");
+    }
+  }
+
+  if(!correct){
+    game_over();
+  }
+
+  return 0;
+}
+
 void welcome(){
   printf("          _        _                  _           _           _        \n");
   printf("         /\\ \\     /\\_\\               /\\ \\        / /\\        / /\\      \n");
@@ -16,45 +60,36 @@ void welcome(){
   printf(" \\/___________/ \\/_________/ \\/__________/ \\_____\\/    \\_____\\/        \n");
 }
 
-int main(){
-  welcome(); 
-  int number;
-  int correct = 0;
-  int attempts =1; 
-  int score = 100;
+void game_over(){
+  printf("      _____          __  __ ______    ______      ________ _____  _       \n");
+  printf("     / ____|   /\\   |  \\/  |  ____|  / __ \\ \\    / /  ____|  __ \\| |      \n");
+  printf("    | |  __   /  \\  | \\  / | |__    | |  | \\ \\  / /| |__  | |__) | |      \n");
+  printf("    | | |_ | / /\\ \\ | |\\/| |  __|   | |  | |\\ \\/ / |  __| |  _  /| |      \n");
+  printf("    | |__| |/ ____ \\| |  | | |____  | |__| | \\  /  | |____| | \\ \\|_|      \n");
+  printf("     \\_____/_/    \\_\\_|  |_|______|  \\____/   \\/   |______|_|  \\_(_)      \n");
+  printf(" ________________________________________________________________________ \n");
+  printf("|________________________________________________________________________|\n");
+}
 
-  int seconds = time(0);
-  srand(seconds);
-  int secret_number = rand();
-  secret_number = secret_number % 100;
+int choose_level(int *attempts){
+  int level;
 
+  printf("Choose your level:\n");
+  printf("[1] Easy, [2] Hard, [3] Tom Cruise\n");
+  scanf("%d", &level);
 
-  while(!correct){
-    printf("\n\nGive me a number!\n");
-    scanf("%d", &number);
-    printf("[ Number of attempts %d ]\n", attempts);
-    
-    if(number < 0){
-      printf("[ You can't use negative numbers!!! ]\n");
-      continue;
-    }
-    
-    if(number == secret_number){
-      printf("Congratulations! The number is %d!!!\n", secret_number);
-      correct = 1;
-    }else{
-      score = (number - secret_number) / 2;
-
-      if(number > secret_number)
-        printf("Your number is greater than Secret Number!!\n");
-      else
-        printf("Your number is less than Secret Number!!\n");
-      printf("Sorry! You are WRONG!!!\n");
-    }
-    
-    printf("!!! [SCORE: %d]!!!\n", score);
-    attempts++;
+  switch(level){
+    case 1:
+      *attempts = 20;
+      break;
+    case 2:
+      *attempts = 15;
+      break;
+    default:
+      *attempts = 5;
+      break;
   }
 
-  return 0;
+  return level;
 }
+
