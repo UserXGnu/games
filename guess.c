@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+
 void welcome(){
   printf("          _        _                  _           _           _        \n");
   printf("         /\\ \\     /\\_\\               /\\ \\        / /\\        / /\\      \n");
@@ -18,16 +19,23 @@ int main(){
   welcome(); 
   int number;
   int secret_number = 42;
-  int correct;
-
-  for(int i = 0; i <= 3; i++){
+  int correct = 0;
+  int attempts =1; 
+  
+  while(!correct){
     printf("\n\nGive me a number!\n");
     scanf("%d", &number);
-    printf("You have 3 chances!! [Attempt %d]\n", i+1);
+    printf("[ Number of attempts %d ]\n", attempts);
     correct = number == secret_number;
-    if(correct){
+    
+    if(number < 0){
+      printf("[ You can't use negative numbers!!! ]\n");
+      continue;
+    }
+    
+    if(number == secret_number){
       printf("Congratulations! The number is %d!!!\n", secret_number);
-      break;
+      correct = 1;
     }else{
       if(number > secret_number)
         printf("Your number is greater than Secret Number!!\n");
@@ -35,6 +43,7 @@ int main(){
         printf("Your number is less than Secret Number!!\n");
       printf("Sorry! You are WRONG!!!\n");
     }
+   attempts++;
   }
 
   return 0;
