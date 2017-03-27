@@ -26,30 +26,30 @@ int main(){
     	correct = number == secret_number;
     
     	if(number < 0){
-      	printf("[ You can't use negative numbers!!! ]\n");
-      	continue;
+            printf("[ You can't use negative numbers!!! ]\n");
+            continue;
 
     	}
     
-    	if(correct){
-     		printf("Congratulations! The number is %d!!!\n", secret_number);
-    		break; 
+        if(correct){
+            printf("Congratulations! The number is %d!!!\n", secret_number);
+            break; 
 
-    	} else {
-      		if(number > secret_number)
-        	printf("Your number is greater than Secret Number!!\n");
+        } else {
+            if(number > secret_number)
+                printf("Your number is greater than Secret Number!!\n");
 
-      		else
-        	printf("Your number is less than Secret Number!!\n");
+            else
+                printf("Your number is less than Secret Number!!\n");
 
-    	}
+        }
 
-  	}
+    }
 
-  	if(!correct){
-    	game_over();
+    if(!correct){
+        game_over();
 
-  	}
+    }
 
   	return 0;
 }
